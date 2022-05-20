@@ -205,35 +205,6 @@
             </objects>
             <point key="canvasLocation" x="2242" y="587"/>
         </scene>
-        <!--On The Map-->
-        <scene sceneID="7dW-M3-bcv">
-            <objects>
-                <tableViewController id="tUa-6z-qgK" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Shj-9s-j3c">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CCq-8s-Imf">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CCq-8s-Imf" id="yUy-pG-FDM">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="tUa-6z-qgK" id="wfi-wV-1mO"/>
-                            <outlet property="delegate" destination="tUa-6z-qgK" id="ufV-FQ-YD0"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="On The Map" id="Y2E-kv-MD2"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rwK-PP-MWr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2312" y="-181"/>
-        </scene>
         <!--Map-->
         <scene sceneID="gY5-21-bzz">
             <objects>
@@ -244,12 +215,45 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="tUa-6z-qgK" kind="relationship" relationship="rootViewController" id="2dP-lN-4bm"/>
+                        <segue destination="S8h-ww-eZI" kind="relationship" relationship="rootViewController" id="KXg-NI-Mwu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fne-XF-8G0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1296" y="-181"/>
+        </scene>
+        <!--Map Controller-->
+        <scene sceneID="6zz-iM-1qZ">
+            <objects>
+                <viewController id="S8h-ww-eZI" customClass="MapController" customModule="On_the_map" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tuh-AJ-kwk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cwR-JS-Xhw">
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
+                                <connections>
+                                    <outlet property="delegate" destination="S8h-ww-eZI" id="IkY-Hf-0OS"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sCA-iM-Umx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sCA-iM-Umx" firstAttribute="trailing" secondItem="cwR-JS-Xhw" secondAttribute="trailing" id="0a8-WF-Xm3"/>
+                            <constraint firstItem="cwR-JS-Xhw" firstAttribute="leading" secondItem="sCA-iM-Umx" secondAttribute="leading" id="Cx3-k5-lCU"/>
+                            <constraint firstItem="cwR-JS-Xhw" firstAttribute="top" secondItem="sCA-iM-Umx" secondAttribute="top" id="VgV-7p-hqU"/>
+                            <constraint firstItem="sCA-iM-Umx" firstAttribute="bottom" secondItem="cwR-JS-Xhw" secondAttribute="bottom" id="xb7-sk-yk1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="34D-nd-kch"/>
+                    <connections>
+                        <outlet property="mapView" destination="cwR-JS-Xhw" id="UgL-gH-QCg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JxS-jD-PrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2247.826086956522" y="-169.41964285714286"/>
         </scene>
     </scenes>
     <resources>

@@ -23,6 +23,7 @@
 		8144BF6A28373E6F000448BA /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6928373E6F000448BA /* StudentModel.swift */; };
 		8144BF6C28374B3F000448BA /* PostLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6B28374B3F000448BA /* PostLocationRequest.swift */; };
 		8144BF6E283751F4000448BA /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6D283751F4000448BA /* UserResponse.swift */; };
+		8144BF70283755DC000448BA /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6F283755DC000448BA /* MapController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8144BF6928373E6F000448BA /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		8144BF6B28374B3F000448BA /* PostLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationRequest.swift; sourceTree = "<group>"; };
 		8144BF6D283751F4000448BA /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		8144BF6F283755DC000448BA /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				8144BF4328348218000448BA /* LoginController.swift */,
 				8144BF6728373E3A000448BA /* ListController.swift */,
+				8144BF6F283755DC000448BA /* MapController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				8144BF6A28373E6F000448BA /* StudentModel.swift in Sources */,
 				8144BF4228348218000448BA /* SceneDelegate.swift in Sources */,
 				8144BF5C28349B9F000448BA /* LoginRequest.swift in Sources */,
+				8144BF70283755DC000448BA /* MapController.swift in Sources */,
 				8144BF622834A55C000448BA /* LoginErrorResponse.swift in Sources */,
 				8144BF6C28374B3F000448BA /* PostLocationRequest.swift in Sources */,
 				8144BF6028349D3B000448BA /* RestClient.swift in Sources */,
