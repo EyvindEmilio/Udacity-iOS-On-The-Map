@@ -57,5 +57,11 @@ class LoginController: UIViewController {
             vLoader.stopAnimating()
         }
     }
+    
+    @IBAction func signUp(){
+        if let url = URL(string: "https://auth.udacity.com/sign-up") {
+            UIApplication.shared.open(url)
+        }
+    }
 }
 

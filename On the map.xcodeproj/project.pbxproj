@@ -17,6 +17,12 @@
 		8144BF5E28349BAA000448BA /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF5D28349BAA000448BA /* LoginResponse.swift */; };
 		8144BF6028349D3B000448BA /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF5F28349D3B000448BA /* RestClient.swift */; };
 		8144BF622834A55C000448BA /* LoginErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF612834A55C000448BA /* LoginErrorResponse.swift */; };
+		8144BF6428373A8A000448BA /* StudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6328373A8A000448BA /* StudentLocationResponse.swift */; };
+		8144BF6628373C43000448BA /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6528373C43000448BA /* StudentLocation.swift */; };
+		8144BF6828373E3A000448BA /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6728373E3A000448BA /* ListController.swift */; };
+		8144BF6A28373E6F000448BA /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6928373E6F000448BA /* StudentModel.swift */; };
+		8144BF6C28374B3F000448BA /* PostLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6B28374B3F000448BA /* PostLocationRequest.swift */; };
+		8144BF6E283751F4000448BA /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144BF6D283751F4000448BA /* UserResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +38,12 @@
 		8144BF5D28349BAA000448BA /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		8144BF5F28349D3B000448BA /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		8144BF612834A55C000448BA /* LoginErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorResponse.swift; sourceTree = "<group>"; };
+		8144BF6328373A8A000448BA /* StudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationResponse.swift; sourceTree = "<group>"; };
+		8144BF6528373C43000448BA /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		8144BF6728373E3A000448BA /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
+		8144BF6928373E6F000448BA /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
+		8144BF6B28374B3F000448BA /* PostLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationRequest.swift; sourceTree = "<group>"; };
+		8144BF6D283751F4000448BA /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +100,7 @@
 		8144BF5628349B14000448BA /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8144BF6928373E6F000448BA /* StudentModel.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -106,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				8144BF5B28349B9F000448BA /* LoginRequest.swift */,
+				8144BF6B28374B3F000448BA /* PostLocationRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -115,6 +129,9 @@
 			children = (
 				8144BF5D28349BAA000448BA /* LoginResponse.swift */,
 				8144BF612834A55C000448BA /* LoginErrorResponse.swift */,
+				8144BF6328373A8A000448BA /* StudentLocationResponse.swift */,
+				8144BF6528373C43000448BA /* StudentLocation.swift */,
+				8144BF6D283751F4000448BA /* UserResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -123,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				8144BF4328348218000448BA /* LoginController.swift */,
+				8144BF6728373E3A000448BA /* ListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,13 +216,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8144BF6628373C43000448BA /* StudentLocation.swift in Sources */,
+				8144BF6E283751F4000448BA /* UserResponse.swift in Sources */,
+				8144BF6828373E3A000448BA /* ListController.swift in Sources */,
 				8144BF4428348218000448BA /* LoginController.swift in Sources */,
 				8144BF4028348218000448BA /* AppDelegate.swift in Sources */,
+				8144BF6A28373E6F000448BA /* StudentModel.swift in Sources */,
 				8144BF4228348218000448BA /* SceneDelegate.swift in Sources */,
 				8144BF5C28349B9F000448BA /* LoginRequest.swift in Sources */,
 				8144BF622834A55C000448BA /* LoginErrorResponse.swift in Sources */,
+				8144BF6C28374B3F000448BA /* PostLocationRequest.swift in Sources */,
 				8144BF6028349D3B000448BA /* RestClient.swift in Sources */,
 				8144BF5E28349BAA000448BA /* LoginResponse.swift in Sources */,
+				8144BF6428373A8A000448BA /* StudentLocationResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
