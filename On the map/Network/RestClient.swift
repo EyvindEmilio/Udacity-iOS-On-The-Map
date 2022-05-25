@@ -19,6 +19,7 @@ class RestClient{
         
         case login
         case studetLocation
+        case findStudetLocation(String)
         case postStudentLocation
         case putStudentLocation(String)
         case logout
@@ -27,7 +28,8 @@ class RestClient{
         var stringValue: String {
             switch self{
                 case .login: return "\(Endpoints.base)/session"
-                case .studetLocation: return "\(Endpoints.base)/StudentLocation"
+                case .studetLocation: return "\(Endpoints.base)/StudentLocation?order=-updatedAt"
+                case .findStudetLocation(let uniqueKey): return "\(Endpoints.base)/StudentLocation?uniqueKey=\(uniqueKey)"
                 case .postStudentLocation: return "\(Endpoints.base)/StudentLocation"
                 case .putStudentLocation(let objectId): return "\(Endpoints.base)/StudentLocation/\(objectId)"
                 case .logout: return "\(Endpoints.base)/session"
@@ -64,13 +66,25 @@ class RestClient{
     }
     
     class func loadStudentLocations(completion: @escaping ([StudentLocation], Error?) -> Void) -> URLSessionDataTask {
-        
+        print(Endpoints.studetLocation.url)
        return taskForGETRequest(url: Endpoints.studetLocation.url, responseType: StudemtLocationResponse.self) { studentLocations, error in
             
             if let studentLocations = studentLocations {
                 DispatchQueue.main.async { completion(studentLocations.results,nil) }
             } else {
                 DispatchQueue.main.async { completion([], error) }
+            }
+        }
+    }
+    
+    class func checkStudentLocation(uniqueKey:String, completion: @escaping (Bool, Error?) -> Void) -> URLSessionDataTask {
+        
+       return taskForGETRequest(url: Endpoints.findStudetLocation(uniqueKey).url, responseType: StudemtLocationResponse.self) { studentLocations, error in
+            
+            if let studentLocations = studentLocations {
+                DispatchQueue.main.async { completion(studentLocations.results.count != 0, nil) }
+            } else {
+                DispatchQueue.main.async { completion(false, error) }
             }
         }
     }
@@ -90,10 +104,12 @@ class RestClient{
         let body = PostLocationRequest(uniqueKey: uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude)
         
         taskForPOSTRequest(url: Endpoints.postStudentLocation.url, body: body) { data, error in
-            guard let _ = error else {
+            guard let _ = data else {
                 DispatchQueue.main.async { completion(false, error) }
                 return
             }
+            
+            print("normal")
             DispatchQueue.main.async { completion(true, nil) }
         }
     }
@@ -102,7 +118,7 @@ class RestClient{
         let body = PostLocationRequest(uniqueKey: uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude)
         
         taskForPUTRequest(url: Endpoints.putStudentLocation(objectId).url, body: body) { data, error in
-            guard let _ = error else {
+            guard let _ = data else {
                 DispatchQueue.main.async { completion(false, error) }
                 return
             }
@@ -123,7 +139,7 @@ class RestClient{
         }
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
                 DispatchQueue.main.async { completion(false, error) }
                 return
             }

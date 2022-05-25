@@ -12,22 +12,51 @@ import MapKit
 class MapController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var vLoader: UIActivityIndicatorView!
+    @IBOutlet weak var vPinLocation: UIBarButtonItem!
+    @IBOutlet weak var btnReload: UIBarButtonItem!
     
     private var loadTask: URLSessionDataTask? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.hidesBackButton = true
+        
         loadData()
     }
     
     @IBAction func loadData() {
-//        showLoader(true)
+        print("loadData")
+        showLoader(true)
         loadTask?.cancel()
         loadTask = RestClient.loadStudentLocations { students, error in
-//            self.showLoader(false)
+            self.showLoader(false)
             StudentModel.students = students
-//            self.tableView.reloadData()
             self.loadMarks()
+        }
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        showLoader(true)
+        RestClient.logout { success, error in
+            self.dismiss(animated: true)
+        }
+    }
+
+    @IBAction func attemptUpdateLocation() {
+        showLoader(true)
+        self.onUpdateLocation { self.showLoader(false) }
+    }
+    
+    func showLoader(_ isLoading: Bool){
+        vLoader.isHidden = !isLoading
+        vPinLocation.isEnabled = !isLoading
+        btnReload.isEnabled = !isLoading
+
+        if isLoading {
+            vLoader.startAnimating()
+        } else {
+            vLoader.stopAnimating()
         }
     }
     
@@ -61,6 +90,7 @@ class MapController: UIViewController, MKMapViewDelegate {
     
     func loadMarks() {
         var annotations = [MKPointAnnotation]()
+        self.mapView.removeAnnotations(self.mapView.annotations)
         
         for student in StudentModel.students {
             let lat = CLLocationDegrees(student.latitude)
@@ -74,7 +104,12 @@ class MapController: UIViewController, MKMapViewDelegate {
             
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
+
+            if first == "" {
+                annotation.title = "\(lat.formatted()) \(long.formatted())"
+            } else {
+                annotation.title = "\(first) \(last)"
+            }
             annotation.subtitle = mediaURL
             
             annotations.append(annotation)

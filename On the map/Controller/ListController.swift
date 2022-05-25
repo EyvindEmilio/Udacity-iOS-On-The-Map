@@ -14,6 +14,10 @@ class ListController: UIViewController {
     
     @IBOutlet weak var vLoader: UIActivityIndicatorView!
     
+    @IBOutlet weak var vPinLocation: UIBarButtonItem!
+    
+    @IBOutlet weak var btnReload: UIBarButtonItem!
+    
     private var loadTask: URLSessionDataTask? = nil
     
     override func viewDidLoad() {
@@ -37,8 +41,23 @@ class ListController: UIViewController {
         }
     }
     
+    @IBAction func attemptUpdateLocation() {
+        showLoader(true)
+        self.onUpdateLocation{ self.showLoader(false) }
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        showLoader(true)
+        RestClient.logout { success, error in
+            self.dismiss(animated: true)
+        }
+    }
+    
     func showLoader(_ isLoading: Bool){
         vLoader.isHidden = !isLoading
+        vPinLocation.isEnabled = !isLoading
+        btnReload.isEnabled = !isLoading
+        
         if isLoading {
             vLoader.startAnimating()
         } else {
