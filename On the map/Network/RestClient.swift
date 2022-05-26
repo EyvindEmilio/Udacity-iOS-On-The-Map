@@ -14,6 +14,7 @@ class RestClient{
         static var accountKey = ""
         static var objectId = ""
         static var lastLocationString = ""
+        static var lastWeb = ""
     }
     
     enum Endpoints {
@@ -87,6 +88,7 @@ class RestClient{
                 if studentLocations.results.count > 0 {
                     Auth.objectId = studentLocations.results[0].objectId
                     Auth.lastLocationString = studentLocations.results[0].mapString
+                    Auth.lastWeb = studentLocations.results[0].mediaURL
                 }
                 DispatchQueue.main.async { completion(studentLocations.results.count != 0, nil) }
             } else {
@@ -120,6 +122,7 @@ class RestClient{
               let successBody = try jsonDecoder.decode(PostLocationResponse.self, from: data!)
                 Auth.objectId = successBody.objectId
                 Auth.lastLocationString = mapString
+                Auth.lastWeb = mediaURL
                 DispatchQueue.main.async { completion(true, nil) }
             } catch {
                 do {
@@ -141,6 +144,7 @@ class RestClient{
                 return
             }
             Auth.lastLocationString = mapString
+            Auth.lastWeb = mediaURL
             DispatchQueue.main.async { completion(true, nil) }
         }
     }

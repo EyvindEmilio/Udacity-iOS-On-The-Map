@@ -32,6 +32,11 @@ class SubmitLocationController: UIViewController, UITextFieldDelegate, MKMapView
         self.navigationItem.hidesBackButton = true
         
         tfLinkToShare.text = TestData.webAddress
+        
+        if !isNewPost {
+            tfLinkToShare.text = RestClient.Auth.lastWeb
+        }
+        
         search()
     }
     
