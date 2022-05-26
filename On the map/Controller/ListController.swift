@@ -35,8 +35,17 @@ class ListController: UIViewController {
         loadTask?.cancel()
         loadTask = RestClient.loadStudentLocations { students, error in
             self.showLoader(false)
-            StudentModel.students = students
-            self.tableView.reloadData()
+            if error != nil {
+                let alertVC = UIAlertController(title: "", message: "Can't load student locations", preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alertVC.addAction(UIAlertAction(title: "Try again", style: .default, handler: { UIAlertAction in
+                    self.loadData()
+                }))
+                self.present(alertVC, animated: true)
+            } else {
+                StudentModel.students = students
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -90,6 +99,11 @@ extension ListController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let app = UIApplication.shared
+        let toOpen = StudentModel.students[indexPath.row].mediaURL
+        if toOpen != "" {
+            app.open(URL(string: toOpen)!)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

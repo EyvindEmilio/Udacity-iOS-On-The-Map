@@ -34,8 +34,17 @@ class MapController: UIViewController, MKMapViewDelegate {
         loadTask?.cancel()
         loadTask = RestClient.loadStudentLocations { students, error in
             self.showLoader(false)
-            StudentModel.students = students
-            self.loadMarks()
+            if error != nil {
+                let alertVC = UIAlertController(title: "", message: "Can't load student locations", preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alertVC.addAction(UIAlertAction(title: "Try again", style: .default, handler: { UIAlertAction in
+                    self.loadData()
+                }))
+                self.present(alertVC, animated: true)
+            } else {
+                StudentModel.students = students
+                self.loadMarks()
+            }
         }
     }
     
@@ -85,8 +94,9 @@ class MapController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle! {
-                app.open(URL(string: toOpen)!)
+            let toOpen = view.annotation?.subtitle
+            if toOpen != nil && toOpen != "" {
+                app.open(URL(string: toOpen!!)!)
             }
         }
     }
