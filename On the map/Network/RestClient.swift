@@ -12,6 +12,8 @@ class RestClient{
     struct Auth {
         static var sessionId = ""
         static var accountKey = ""
+        static var objectId = ""
+        static var lastLocationString = ""
     }
     
     enum Endpoints {
@@ -56,7 +58,7 @@ class RestClient{
                 DispatchQueue.main.async { completion(true, nil, nil) }
             } catch {
                 do {
-                    let errorBody = try jsonDecoder.decode(LoginErrorResponse.self, from: newData!)
+                    let errorBody = try jsonDecoder.decode(ErrorResponse.self, from: newData!)
                     DispatchQueue.main.async { completion(false, errorBody.error, nil) }
                 } catch {
                     DispatchQueue.main.async { completion(false, nil, error) }
@@ -82,6 +84,10 @@ class RestClient{
        return taskForGETRequest(url: Endpoints.findStudetLocation(uniqueKey).url, responseType: StudemtLocationResponse.self) { studentLocations, error in
             
             if let studentLocations = studentLocations {
+                if studentLocations.results.count > 0 {
+                    Auth.objectId = studentLocations.results[0].objectId
+                    Auth.lastLocationString = studentLocations.results[0].mapString
+                }
                 DispatchQueue.main.async { completion(studentLocations.results.count != 0, nil) }
             } else {
                 DispatchQueue.main.async { completion(false, error) }
@@ -109,12 +115,24 @@ class RestClient{
                 return
             }
             
-            print("normal")
-            DispatchQueue.main.async { completion(true, nil) }
+            let jsonDecoder = JSONDecoder()
+            do {
+              let successBody = try jsonDecoder.decode(PostLocationResponse.self, from: data!)
+                Auth.objectId = successBody.objectId
+                Auth.lastLocationString = mapString
+                DispatchQueue.main.async { completion(true, nil) }
+            } catch {
+                do {
+                    let errorBody = try jsonDecoder.decode(ErrorResponse.self, from: data!)
+                    DispatchQueue.main.async { completion(false, MessageError(errorBody.error)) }
+                } catch {
+                    DispatchQueue.main.async { completion(false, error) }
+                }
+            }
         }
     }
     
-    class func putLocation(objectId:String, uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?) -> Void) {
+    class func putLocation(objectId: String, uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?) -> Void) {
         let body = PostLocationRequest(uniqueKey: uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude)
         
         taskForPUTRequest(url: Endpoints.putStudentLocation(objectId).url, body: body) { data, error in
@@ -122,6 +140,7 @@ class RestClient{
                 DispatchQueue.main.async { completion(false, error) }
                 return
             }
+            Auth.lastLocationString = mapString
             DispatchQueue.main.async { completion(true, nil) }
         }
     }

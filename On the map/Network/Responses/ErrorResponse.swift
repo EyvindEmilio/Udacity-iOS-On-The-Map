@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LoginErrorResponse: Codable{
+struct ErrorResponse: Codable{
     let status: Int
     let error: String
     

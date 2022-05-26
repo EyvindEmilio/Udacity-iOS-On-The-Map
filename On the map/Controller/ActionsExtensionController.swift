@@ -16,18 +16,18 @@ extension UIViewController {
             if isRegistered {
                 let alertVC = UIAlertController(title: "", message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { UIAlertAction in
-                    self.overwriteLocation()
+                    self.overwriteLocation(false)
                 }))
                 alertVC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
                 self.present(alertVC, animated: true)
             } else {
-                self.overwriteLocation()
+                self.overwriteLocation(true)
             }
         }
     }
     
-    func overwriteLocation(){
-        UpdateLocationController.launch(self)
+    func overwriteLocation(_ isNew: Bool){
+        UpdateLocationController.launch(isNew, self)
     }
     
     func showSingleAlert(_ message: String, _ handler: @escaping ((_ action: UIAlertAction) -> Void) = {action in }) {

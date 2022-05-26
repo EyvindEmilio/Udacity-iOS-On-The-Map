@@ -17,11 +17,13 @@ class SubmitLocationController: UIViewController, UITextFieldDelegate, MKMapView
     @IBOutlet weak var vLoader: UIActivityIndicatorView!
     var locationStr: String = ""
     var coordinate: CLLocationCoordinate2D? = nil
+    private var isNewPost = true
     
-    static func launch(location:String, _ originVC: UIViewController){
+    static func launch(location:String,_ isNewPost: Bool, _ originVC: UIViewController){
         let controller = originVC.storyboard?.instantiateViewController(withIdentifier: "SubmitLocationController") as! SubmitLocationController
         
         controller.locationStr = location
+        controller.isNewPost = isNewPost
         originVC.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -29,8 +31,7 @@ class SubmitLocationController: UIViewController, UITextFieldDelegate, MKMapView
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
         
-        self.navigationItem.leftBarButtonItems?.append(UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil))
-        
+        tfLinkToShare.text = TestData.webAddress
         search()
     }
     
@@ -118,12 +119,32 @@ class SubmitLocationController: UIViewController, UITextFieldDelegate, MKMapView
             return
         }
         
+        if isNewPost {
+            postNewLocation(link: link, coordinate: coordinate)
+        } else {
+            updateLocation(link: link, coordinate: coordinate)
+        }
+       
+    }
+    
+    private func postNewLocation(link: String, coordinate: CLLocationCoordinate2D){
         showLoader(true)
-        
-        RestClient.postLocation(uniqueKey: RestClient.Auth.accountKey, firstName: "Emi", lastName: "Emi", mapString: locationStr, mediaURL: link, latitude: coordinate.latitude, longitude: coordinate.longitude) { isSuccess, error in
+        RestClient.postLocation(uniqueKey: RestClient.Auth.accountKey, firstName: TestData.firstName, lastName: TestData.lastName, mapString: locationStr, mediaURL: link, latitude: coordinate.latitude, longitude: coordinate.longitude) { isSuccess, error in
             self.showLoader(false)
             if !isSuccess {
                 self.showSingleAlert("Can't post location")
+                return
+            }
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    private func updateLocation(link: String, coordinate: CLLocationCoordinate2D){
+        showLoader(true)
+        RestClient.putLocation(objectId:RestClient.Auth.objectId, uniqueKey: RestClient.Auth.accountKey, firstName: TestData.firstName, lastName: TestData.lastName, mapString: locationStr, mediaURL: link, latitude: coordinate.latitude, longitude: coordinate.longitude) { isSuccess, error in
+            self.showLoader(false)
+            if !isSuccess {
+                self.showSingleAlert("Can't update location")
                 return
             }
             self.navigationController?.popToRootViewController(animated: true)

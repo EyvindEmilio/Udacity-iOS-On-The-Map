@@ -17,7 +17,8 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tfUsername.text = TestData.email
+        tfPassword.text = TestData.password
         showLoader(false)
     }
     

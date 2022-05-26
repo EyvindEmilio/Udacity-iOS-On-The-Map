@@ -22,12 +22,11 @@ class ListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadData()
         tableView.reloadData()
     }
     
@@ -85,7 +84,7 @@ extension ListController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.textLabel?.text = "\(student.latitude), \(student.longitude)"
         }
-        cell.imageView?.image = UIImage(named: "mappin")
+        cell.imageView?.image = UIImage(systemName: "mappin")
         
         return cell
     }

@@ -13,15 +13,21 @@ class UpdateLocationController : UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tfLocation: UITextField!
     
-    static func launch(_ originVC: UIViewController){
+    private var isNewPost = true
+    
+    static func launch(_ isNew: Bool, _ originVC: UIViewController){
         let controller = originVC.storyboard?.instantiateViewController(withIdentifier: "UpdateLocationController") as! UpdateLocationController
+        controller.isNewPost = isNew
         originVC.navigationController?.pushViewController(controller, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
-        
+        tfLocation.text = TestData.location
+        if !isNewPost {
+            tfLocation.text = RestClient.Auth.lastLocationString
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +55,7 @@ class UpdateLocationController : UIViewController, UITextFieldDelegate {
             showSingleAlert("Location is needed")
             return
         } else {
-            SubmitLocationController.launch(location: location, self)
+            SubmitLocationController.launch(location: location, isNewPost, self)
         }
     }
 
